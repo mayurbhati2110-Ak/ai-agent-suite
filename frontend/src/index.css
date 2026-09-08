@@ -1,0 +1,1572 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600;700&display=swap");
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  width: 100%;
+  min-width: 100%;
+  height: 100%;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  background: #08090d;
+  color: #ffffff;
+  overflow: hidden;
+}
+
+/* =========================================
+   MAIN APPLICATION
+========================================= */
+
+.app-shell {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  background: #08090d;
+}
+
+/* =========================================
+   FILE SIDEBAR
+========================================= */
+
+.file-sidebar {
+  width: 260px;
+  min-width: 260px;
+  height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+
+  background: #0d0f14;
+  border-right: 1px solid #20232b;
+}
+
+.sidebar-header {
+  height: 72px;
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding: 0 22px;
+
+  border-bottom: 1px solid #20232b;
+
+  font-family: "DM Mono", monospace;
+  font-size: 12px;
+  letter-spacing: 1.5px;
+  color: #aab2c0;
+}
+
+.logo-mark {
+  width: 34px;
+  height: 34px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: #ffffff;
+  color: #0b0d10;
+
+  border-radius: 8px;
+
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.file-section {
+  padding: 26px 18px;
+}
+
+.section-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  color: #707887;
+
+  font-family: "DM Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+}
+
+.add-file-btn {
+  width: 26px;
+  height: 26px;
+
+  border: 1px solid #2b3039;
+  border-radius: 6px;
+
+  background: #161920;
+  color: #aab2c0;
+
+  cursor: pointer;
+
+  font-size: 17px;
+}
+
+.add-file-btn:hover {
+  background: #222731;
+  color: white;
+}
+
+.empty-files {
+  margin-top: 100px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  color: #69717f;
+}
+
+.file-icon {
+  font-size: 32px;
+  margin-bottom: 15px;
+}
+
+.empty-files p {
+  margin: 0 0 6px;
+  font-size: 13px;
+  color: #9aa3b2;
+}
+
+.empty-files small {
+  font-size: 11px;
+  color: #606876;
+}
+
+/* =========================================
+   MAIN WORKSPACE
+========================================= */
+
+.workspace {
+  position: relative;
+
+  flex: 1;
+  height: 100vh;
+  min-width: 0;
+
+  overflow: auto;
+
+  background-color: #090b10;
+
+  background-image:
+    linear-gradient(
+      rgba(255, 255, 255, 0.025) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.025) 1px,
+      transparent 1px
+    );
+
+  background-size: 48px 48px;
+}
+
+/* =========================================
+   HEADER
+========================================= */
+
+.workspace-header {
+  width: 100%;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  padding: 50px 60px;
+}
+
+.eyebrow {
+  display: block;
+
+  margin-bottom: 12px;
+
+  color: #737b89;
+
+  font-family: "DM Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 2px;
+}
+
+.workspace-header h1,
+.meeting-content h1 {
+  margin: 0;
+
+  color: #f5f7fa;
+
+  font-size: clamp(38px, 4vw, 58px);
+  font-weight: 600;
+  letter-spacing: -2.5px;
+}
+
+.workspace-header p,
+.meeting-content p {
+  margin-top: 14px;
+
+  color: #7d8592;
+  font-size: 15px;
+}
+
+.system-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  margin-top: 10px;
+
+  color: #707987;
+
+  font-family: "DM Mono", monospace;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+}
+
+.status-dot {
+  width: 7px;
+  height: 7px;
+
+  border-radius: 50%;
+
+  background: #51d88a;
+  box-shadow: 0 0 10px rgba(81, 216, 138, 0.8);
+}
+
+/* =========================================
+   AGENT FLOATING AREA
+========================================= */
+
+.agent-selection {
+  position: absolute;
+
+  left: 50%;
+  top: 62%;
+
+  width: min(900px, calc(100% - 100px));
+
+  transform: translate(-50%, -50%);
+
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.agent-row {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+}
+
+/* =========================================
+   AGENT CARDS
+========================================= */
+
+.agent-card {
+  position: relative;
+
+  flex: 1;
+
+  min-height: 130px;
+
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  padding: 20px;
+
+  text-align: left;
+
+  background: rgba(17, 20, 27, 0.88);
+
+  border: 1px solid #262c36;
+  border-radius: 14px;
+
+  color: white;
+
+  backdrop-filter: blur(12px);
+
+  transition:
+    transform 0.25s ease,
+    border-color 0.25s ease,
+    background 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.agent-card.available {
+  cursor: pointer;
+}
+
+.agent-card.available:hover {
+  transform: translateY(-6px);
+
+  background: rgba(25, 29, 38, 0.98);
+
+  border-color: #697386;
+
+  box-shadow:
+    0 20px 45px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(255, 255, 255, 0.03);
+}
+
+.agent-card.coming-soon {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* Agent Number */
+
+.agent-number {
+  width: 44px;
+  height: 44px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border: 1px solid #343b48;
+  border-radius: 10px;
+
+  color: #a4adbb;
+
+  font-family: "DM Mono", monospace;
+  font-size: 11px;
+}
+
+/* Agent Content */
+
+.agent-info {
+  flex: 1;
+}
+
+.agent-info h3 {
+  margin: 0 0 8px;
+
+  color: #f1f3f5;
+
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.agent-info p {
+  margin: 0;
+
+  color: #747d8b;
+
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+/* Arrow */
+
+.agent-arrow {
+  color: #697386;
+  font-size: 20px;
+
+  transition: transform 0.25s ease;
+}
+
+.agent-card.available:hover .agent-arrow {
+  transform: translateX(5px);
+  color: white;
+}
+
+/* =========================================
+   MEETING AGENT PAGE
+========================================= */
+
+.meeting-placeholder {
+  min-height: 100vh;
+
+  padding: 45px 60px;
+}
+
+.back-button {
+  border: none;
+  background: transparent;
+
+  padding: 0;
+
+  color: #7b8491;
+
+  cursor: pointer;
+
+  font-family: "DM Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 1px;
+}
+
+.back-button:hover {
+  color: white;
+}
+
+.meeting-content {
+  max-width: 700px;
+
+  margin: 130px auto;
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 900px) {
+  .file-sidebar {
+    width: 210px;
+    min-width: 210px;
+  }
+
+  .workspace-header {
+    padding: 40px;
+  }
+
+  .agent-selection {
+    width: calc(100% - 70px);
+  }
+}
+
+@media (max-width: 700px) {
+  body {
+    overflow: auto;
+  }
+
+  .file-sidebar {
+    display: none;
+  }
+
+  .workspace-header {
+    padding: 30px 24px;
+  }
+
+  .system-status {
+    display: none;
+  }
+
+  .agent-selection {
+    position: relative;
+
+    left: auto;
+    top: auto;
+
+    width: calc(100% - 40px);
+
+    margin: 40px auto;
+
+    transform: none;
+  }
+
+  .agent-row {
+    flex-direction: column;
+  }
+
+  .agent-card {
+    min-height: 110px;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+/* =========================================
+   AI MEETING AGENT
+========================================= */
+
+.meeting-agent {
+  min-height: 100vh;
+  padding: 38px 60px 80px;
+}
+
+/* =========================================
+   TOP BAR
+========================================= */
+
+.meeting-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding-bottom: 22px;
+  border-bottom: 1px solid #20242c;
+}
+
+.meeting-topbar .back-button {
+  border: none;
+  background: transparent;
+  padding: 0;
+
+  color: #7f8998;
+  cursor: pointer;
+
+  font-family: "DM Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 1px;
+
+  transition: color 0.2s ease;
+}
+
+.meeting-topbar .back-button:hover {
+  color: #ffffff;
+}
+
+.agent-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  color: #8993a1;
+
+  font-family: "DM Mono", monospace;
+  font-size: 10px;
+  letter-spacing: 1.2px;
+}
+
+/* =========================================
+   MAIN CONTENT
+========================================= */
+
+.meeting-agent-content {
+  width: min(950px, 100%);
+  margin: 0 auto;
+  padding-top: 70px;
+}
+
+.meeting-title-section {
+  margin-bottom: 45px;
+}
+
+.meeting-title-section h1 {
+  margin: 0;
+
+  color: #ffffff;
+
+  font-size: clamp(42px, 5vw, 64px);
+  font-weight: 800;
+
+  letter-spacing: -2.5px;
+
+  text-shadow: 0 4px 25px rgba(255, 255, 255, 0.08);
+}
+
+.meeting-title-section p {
+  max-width: 650px;
+
+  margin: 16px 0 0;
+
+  color: #858e9c;
+
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+/* =========================================
+   TRANSCRIPT PANEL
+========================================= */
+
+.transcript-panel,
+.response-panel {
+  overflow: hidden;
+
+  background: #11151d;
+
+  border: 1px solid #394150;
+  border-radius: 16px;
+
+  box-shadow:
+    0 25px 60px rgba(0, 0, 0, 0.35),
+    0 0 0 1px rgba(255, 255, 255, 0.025);
+}
+
+.panel-header {
+  height: 58px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 0 24px;
+
+  border-bottom: 1px solid #333b47;
+
+  background: #171c25;
+
+  color: #d5dbe5;
+
+  font-family: "DM Mono", monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+}
+
+.character-count {
+  color: #626b78;
+}
+
+/* =========================================
+   TEXTAREA
+========================================= */
+
+.transcript-panel textarea {
+  width: 100%;
+  height: 300px;
+
+  display: block;
+
+  resize: vertical;
+
+  border: none;
+  outline: none;
+
+  padding: 26px;
+
+  background: #11151d;
+
+  color: #f0f3f7;
+
+  font-family: "Inter", sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.8;
+}
+
+.transcript-panel textarea::placeholder {
+  color: #7d8795;
+}
+
+/* Scrollbar */
+
+.transcript-panel textarea::-webkit-scrollbar {
+  width: 7px;
+}
+
+.transcript-panel textarea::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.transcript-panel textarea::-webkit-scrollbar-thumb {
+  background: #343b47;
+  border-radius: 10px;
+}
+
+/* =========================================
+   PANEL FOOTER
+========================================= */
+
+.panel-footer {
+  min-height: 70px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+
+  padding: 14px 18px 14px 22px;
+
+  border-top: 1px solid #252a33;
+}
+
+.input-hint {
+  color: #68717f;
+
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.analyze-button {
+  flex-shrink: 0;
+
+  border: 1px solid #ffffff;
+  border-radius: 8px;
+
+  padding: 14px 22px;
+
+  background: #ffffff;
+  color: #080b10;
+
+  cursor: pointer;
+
+  font-family: "DM Mono", monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+
+  box-shadow:
+    0 8px 20px rgba(255, 255, 255, 0.12);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.analyze-button:hover:not(:disabled) {
+  transform: translateY(-3px);
+
+  background: #ffffff;
+
+  box-shadow:
+    0 14px 30px rgba(255, 255, 255, 0.2);
+}
+
+.analyze-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  background: #ffffff;
+}
+
+.analyze-button:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+/* =========================================
+   AI RESPONSE
+========================================= */
+
+.response-panel {
+  margin-top: 28px;
+
+  animation: responseAppear 0.4s ease;
+}
+
+.response-status {
+  color: #6ee7a1;
+}
+
+.response-content {
+  padding: 26px;
+
+  color: #c8ced7;
+
+  font-size: 14px;
+  line-height: 1.8;
+
+  white-space: pre-wrap;
+}
+
+/* =========================================
+   ANIMATION
+========================================= */
+
+@keyframes responseAppear {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 700px) {
+  .meeting-agent {
+    padding: 28px 20px 60px;
+  }
+
+  .meeting-agent-content {
+    padding-top: 50px;
+  }
+
+  .meeting-topbar {
+    align-items: flex-start;
+  }
+
+  .agent-status {
+    display: none;
+  }
+
+  .meeting-title-section {
+    margin-bottom: 35px;
+  }
+
+  .transcript-panel textarea {
+    height: 240px;
+  }
+
+  .panel-footer {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .analyze-button {
+    width: 100%;
+  }
+}
+
+
+
+
+
+
+
+
+
+/* =========================================
+   API ERROR PANEL
+========================================= */
+
+.error-panel {
+  margin-top: 28px;
+  padding: 20px;
+
+  border: 1px solid #6b3434;
+  border-radius: 12px;
+
+  background: rgba(90, 30, 30, 0.18);
+
+  font-family: "DM Mono", monospace;
+}
+
+.error-panel strong {
+  font-size: 11px;
+  letter-spacing: 1px;
+  color: #ff8b8b;
+}
+
+.error-panel p {
+  margin: 10px 0 0;
+  color: #b9a2a2;
+
+  font-family: "Inter", sans-serif;
+  font-size: 13px;
+}
+
+/* =========================================
+   ANALYSIS SUMMARY
+========================================= */
+
+.analysis-summary {
+  padding: 28px;
+
+  border-bottom: 1px solid #333b47;
+
+  background: #141922;
+}
+
+.analysis-summary span {
+  display: inline-block;
+
+  margin-bottom: 12px;
+
+  color: #6ee7a1;
+
+  font-family: "DM Mono", monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+}
+
+.analysis-summary p {
+  margin: 0;
+
+  color: #f0f3f7;
+
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.8;
+}
+
+/* =========================================
+   JSON RESPONSE
+========================================= */
+
+.response-content {
+  padding: 24px 26px;
+  overflow-x: auto;
+}
+
+.response-content pre {
+  margin: 0;
+
+  color: #b8c2cf;
+
+  font-family: "DM Mono", monospace;
+  font-size: 12px;
+  line-height: 1.8;
+
+  white-space: pre-wrap;
+}
+
+
+/* =========================================
+   AI ANALYSIS CONTAINER
+========================================= */
+
+.ai-analysis {
+  margin-top: 28px;
+
+  padding: 22px;
+
+  background: rgba(8, 16, 30, 0.85);
+
+  border: 1px solid #245ea8;
+  border-radius: 18px;
+
+  box-shadow:
+    0 25px 70px rgba(0, 0, 0, 0.35);
+}
+
+/* =========================================
+   ANALYSIS HEADER
+========================================= */
+
+.analysis-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 0 4px 20px;
+
+  border-bottom: 1px solid #243348;
+}
+
+.analysis-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  color: #dce9ff;
+
+  font-family: "DM Mono", monospace;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+}
+
+.analysis-sparkle {
+  color: #6ca8ff;
+  font-size: 22px;
+}
+
+.analysis-meta {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  font-family: "DM Mono", monospace;
+  font-size: 10px;
+}
+
+.complete-badge {
+  padding: 8px 14px;
+
+  border: 1px solid rgba(59, 219, 158, 0.35);
+  border-radius: 20px;
+
+  background: rgba(22, 130, 93, 0.25);
+
+  color: #55e0a5;
+
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.analysis-time {
+  color: #8f9db1;
+}
+
+/* =========================================
+   SUMMARY
+========================================= */
+
+.summary-card {
+  display: flex;
+  gap: 18px;
+
+  margin: 20px 0 16px;
+  padding: 24px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(29, 91, 181, 0.42),
+      rgba(10, 24, 46, 0.85)
+    );
+
+  border: 1px solid #2379dc;
+  border-radius: 14px;
+}
+
+.summary-icon {
+  width: 48px;
+  height: 48px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: rgba(58, 125, 225, 0.25);
+
+  border: 1px solid #397fd8;
+  border-radius: 12px;
+
+  color: #7fb3ff;
+  font-size: 22px;
+}
+
+.summary-label {
+  display: block;
+
+  margin-bottom: 10px;
+
+  color: #73b2ff;
+
+  font-family: "DM Mono", monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+}
+
+.summary-card p {
+  margin: 0;
+
+  color: #edf4ff;
+
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.8;
+}
+
+/* =========================================
+   ANALYSIS GRID
+========================================= */
+
+.analysis-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+
+  gap: 16px;
+}
+
+/* =========================================
+   COMMON ANALYSIS CARD
+========================================= */
+
+.analysis-card {
+  min-height: 260px;
+
+  overflow: hidden;
+
+  padding: 18px;
+
+  background: rgba(10, 18, 30, 0.92);
+
+  border: 1px solid #27354a;
+  border-radius: 14px;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.analysis-card:hover {
+  transform: translateY(-3px);
+
+  box-shadow:
+    0 18px 35px rgba(0, 0, 0, 0.25);
+}
+
+/* =========================================
+   CARD HEADER
+========================================= */
+
+.analysis-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding-bottom: 14px;
+  margin-bottom: 16px;
+
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.card-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  font-family: "DM Mono", monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+}
+
+.card-icon {
+  width: 32px;
+  height: 32px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border-radius: 10px;
+
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.count-badge {
+  min-width: 28px;
+  height: 28px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 0 8px;
+
+  border-radius: 20px;
+
+  font-family: "DM Mono", monospace;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+/* =========================================
+   DECISIONS
+========================================= */
+
+.decisions-card {
+  border-color: #20bfa3;
+}
+
+.decisions-card .card-title {
+  color: #55e7cf;
+}
+
+.decisions-card .card-icon {
+  background: rgba(39, 216, 181, 0.18);
+  color: #62efd7;
+}
+
+.decisions-card .count-badge {
+  background: rgba(39, 216, 181, 0.15);
+  color: #55e7cf;
+}
+
+/* =========================================
+   TASKS
+========================================= */
+
+.tasks-card {
+  border-color: #288bd7;
+}
+
+.tasks-card .card-title {
+  color: #72bfff;
+}
+
+.tasks-card .card-icon {
+  background: rgba(42, 142, 225, 0.2);
+  color: #79c2ff;
+}
+
+.tasks-card .count-badge {
+  background: rgba(42, 142, 225, 0.2);
+  color: #9bcfff;
+}
+
+.task-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.task-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+
+  padding-bottom: 14px;
+
+  border-bottom:
+    1px solid rgba(255, 255, 255, 0.08);
+}
+
+.task-item:last-child {
+  border-bottom: none;
+}
+
+.task-dot {
+  width: 10px;
+  height: 10px;
+
+  margin-top: 6px;
+
+  flex-shrink: 0;
+
+  border-radius: 50%;
+
+  background: #62b8ff;
+}
+
+.task-main {
+  flex: 1;
+}
+
+.task-main strong {
+  display: block;
+
+  color: #f1f6ff;
+
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.task-main p {
+  margin: 7px 0 0;
+
+  color: #8d9caf;
+
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+.task-main p span {
+  margin: 0 6px;
+  color: #4c5868;
+}
+
+.task-status {
+  padding: 5px 8px;
+
+  border-radius: 8px;
+
+  background: rgba(196, 139, 27, 0.25);
+
+  color: #f3c45c;
+
+  font-family: "DM Mono", monospace;
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+/* =========================================
+   QUESTIONS
+========================================= */
+
+.questions-card {
+  border-color: #9c42e3;
+}
+
+.questions-card .card-title {
+  color: #d59aff;
+}
+
+.questions-card .card-icon {
+  background: rgba(164, 73, 234, 0.2);
+  color: #d69dff;
+}
+
+.questions-card .count-badge {
+  background: rgba(164, 73, 234, 0.22);
+  color: #dfadff;
+}
+
+.question-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.question-dot {
+  width: 14px;
+  height: 14px;
+
+  margin-top: 4px;
+
+  flex-shrink: 0;
+
+  border-radius: 50%;
+
+  background: linear-gradient(
+    135deg,
+    #d49aff,
+    #8b54dd
+  );
+}
+
+.question-item strong {
+  color: #f4eaff;
+
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.question-item p {
+  margin: 8px 0 0;
+
+  color: #aa9ab9;
+
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+/* =========================================
+   CONTRADICTIONS
+========================================= */
+
+.contradictions-card {
+  border-color: #e33b5f;
+}
+
+.contradictions-card .card-title {
+  color: #ff8298;
+}
+
+.contradictions-card .card-icon {
+  background: rgba(222, 55, 87, 0.18);
+  color: #ff8da2;
+}
+
+.contradictions-card .count-badge {
+  background: rgba(222, 55, 87, 0.22);
+  color: #ff9bad;
+}
+
+.contradiction-item strong {
+  display: block;
+
+  margin-bottom: 10px;
+
+  color: #f4f6fa;
+
+  font-size: 13px;
+}
+
+.statement {
+  display: inline-block;
+
+  padding: 6px 10px;
+
+  border-radius: 7px;
+
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.statement.first {
+  background: rgba(222, 55, 87, 0.18);
+  color: #ff9cac;
+}
+
+.statement.second {
+  background: rgba(44, 127, 226, 0.2);
+  color: #91c5ff;
+}
+
+.vs {
+  display: block;
+
+  margin: 7px 0;
+
+  color: #a8b1c0;
+
+  font-family: "DM Mono", monospace;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.contradiction-item p {
+  margin: 10px 0 0;
+
+  color: #a6aebb;
+
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+/* =========================================
+   FOLLOW UPS
+========================================= */
+
+.followups-card {
+  border-color: #d49b27;
+}
+
+.followups-card .card-title {
+  color: #f0c365;
+}
+
+.followups-card .card-icon {
+  background: rgba(215, 158, 41, 0.2);
+  color: #ffd275;
+}
+
+.followups-card .count-badge {
+  background: rgba(215, 158, 41, 0.2);
+  color: #f5cd76;
+}
+
+/* =========================================
+   UNCLEAR INSTRUCTIONS
+========================================= */
+
+.unclear-card {
+  border-color: #20c3cf;
+}
+
+.unclear-card .card-title {
+  color: #63e6ef;
+}
+
+.unclear-card .card-icon {
+  background: rgba(31, 199, 210, 0.18);
+  color: #69edf4;
+}
+
+.unclear-card .count-badge {
+  background: rgba(31, 199, 210, 0.2);
+  color: #73f0f6;
+}
+
+.unclear-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.unclear-dot {
+  width: 12px;
+  height: 12px;
+
+  margin-top: 5px;
+
+  flex-shrink: 0;
+
+  border-radius: 50%;
+
+  background: #50dce8;
+}
+
+.unclear-item strong {
+  color: #ecfeff;
+
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.unclear-item p {
+  margin: 8px 0 0;
+
+  color: #8eabb0;
+
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+/* =========================================
+   EMPTY STATES
+========================================= */
+
+.empty-state {
+  min-height: 160px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  text-align: center;
+}
+
+.empty-state span {
+  margin-bottom: 14px;
+
+  color: #6582a6;
+
+  font-size: 28px;
+}
+
+.empty-state p {
+  max-width: 190px;
+
+  margin: 0;
+
+  color: #7f8ea2;
+
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+/* =========================================
+   SIMPLE ITEMS
+========================================= */
+
+.simple-item {
+  padding: 12px 0;
+
+  border-bottom:
+    1px solid rgba(255, 255, 255, 0.08);
+}
+
+.simple-item:last-child {
+  border-bottom: none;
+}
+
+.simple-item strong {
+  color: #eef4ff;
+  font-size: 13px;
+}
+
+.simple-item p {
+  margin: 7px 0 0;
+
+  color: #8796aa;
+
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 1100px) {
+  .analysis-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 700px) {
+  .analysis-header {
+    align-items: flex-start;
+    gap: 15px;
+    flex-direction: column;
+  }
+
+  .analysis-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .summary-card {
+    padding: 18px;
+  }
+}
