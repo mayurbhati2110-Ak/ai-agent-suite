@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface MeetingAgentProps {
   onBack: () => void;
@@ -60,6 +60,14 @@ function MeetingAgent({
   initialTranscript = "",
 }: MeetingAgentProps) {
   const [transcript, setTranscript] = useState(initialTranscript);
+
+  useEffect(() => {
+  if (initialTranscript) {
+    setTranscript(initialTranscript);
+    setResponse(null);
+    setError(null);
+  }
+}, [initialTranscript]);
 
   const [response, setResponse] =
     useState<MeetingResponse | null>(null);
