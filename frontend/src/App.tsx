@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./index.css";
 import MeetingAgent from "./components/MeetingAgent";
+import { sampleMeetingTranscript } from "./data/sampleTranscript";
 
 type Agent = {
   id: number;
@@ -45,6 +46,8 @@ const agents: Agent[] = [
 function App() {
   const [selectedAgent, setSelectedAgent] = useState<number | null>(null);
 
+  const [initialTranscript, setInitialTranscript] = useState("");
+
   const handleAgentClick = (agent: Agent) => {
     if (agent.status === "available") {
       setSelectedAgent(agent.id);
@@ -53,6 +56,11 @@ function App() {
 
   const goBack = () => {
     setSelectedAgent(null);
+  };
+
+  const loadSampleTranscript = () => {
+  setInitialTranscript(sampleMeetingTranscript);
+  setSelectedAgent(1);
   };
 
   return (
@@ -70,10 +78,29 @@ function App() {
             <button className="add-file-btn">+</button>
           </div>
 
-          <div className="empty-files">
-            <span className="file-icon">📁</span>
-            <p>No files yet</p>
-            <small>File support coming soon</small>
+          <div className="sample-files">
+  <button
+    className="sample-file"
+    onClick={loadSampleTranscript}
+  >
+    <div className="sample-file-icon">
+      TXT
+    </div>
+
+    <div className="sample-file-info">
+      <span className="sample-file-name">
+        q4_website_redesign_meeting.txt
+      </span>
+
+      <span className="sample-file-meta">
+        Sample meeting transcript
+      </span>
+    </div>
+  </button>
+
+            <div className="sample-file-footer">
+                Click the file to load it into the AI Meeting Agent.
+            </div>
           </div>
         </div>
       </aside>
@@ -141,7 +168,10 @@ function App() {
             </div>
           </>
         ) : (
-            <MeetingAgent onBack={goBack} />
+            <MeetingAgent
+              onBack={goBack}
+                initialTranscript={initialTranscript}
+            />
         )}
       </main>
     </div>

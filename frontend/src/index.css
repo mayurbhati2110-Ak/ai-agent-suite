@@ -1570,3 +1570,105 @@ body {
     padding: 18px;
   }
 }
+
+
+
+
+/* =========================================
+   SAMPLE TEST FILE
+========================================= */
+
+.sample-files {
+  margin-top: 28px;
+}
+
+.sample-file {
+  width: 100%;
+
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+
+  padding: 14px;
+
+  border: 1px solid #2b3340;
+  border-radius: 10px;
+
+  background: #141820;
+
+  color: inherit;
+
+  text-align: left;
+  cursor: pointer;
+
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.sample-file:hover {
+  background: #181e28;
+  border-color: #526276;
+
+  transform: translateY(-2px);
+}
+
+.sample-file-icon {
+  width: 38px;
+  height: 42px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid #3b4758;
+  border-radius: 7px;
+
+  background: #1d2530;
+
+  color: #8fc2ff;
+
+  font-family: "DM Mono", monospace;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.sample-file-info {
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.sample-file-name {
+  overflow: hidden;
+
+  color: #e5eaf1;
+
+  font-size: 12px;
+  font-weight: 600;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sample-file-meta {
+  color: #778292;
+
+  font-size: 10px;
+  line-height: 1.5;
+}
+
+.sample-file-footer {
+  margin-top: 14px;
+
+  color: #657181;
+
+  font-size: 10px;
+  line-height: 1.6;
+}
