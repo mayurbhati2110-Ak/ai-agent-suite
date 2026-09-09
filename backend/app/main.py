@@ -15,6 +15,15 @@ from app.schemas.competitor import (
 
 from app.agents.competitor_agent import CompetitorAgent
 
+from app.schemas.website_qa import (
+    WebsiteQARequest,
+    WebsiteQAResponse
+)
+
+from app.agents.website_qa_agent import (
+    WebsiteQAAgent
+)
+
 
 app = FastAPI(
     title="AI Agent Suite",
@@ -105,4 +114,49 @@ def analyze_competitors(
         raise HTTPException(
             status_code=500,
             detail="Failed to analyze competitor updates."
+        )
+
+
+@app.post(
+    "/api/website-qa/analyze",
+    response_model=WebsiteQAResponse
+)
+def analyze_website(
+    request: WebsiteQARequest
+):
+
+    """
+    Analyze a website for broken links,
+    missing images, SEO problems and
+    potential UI/content issues.
+    """
+
+    try:
+
+        agent = WebsiteQAAgent()
+
+        result = agent.analyze(
+            request
+        )
+
+        return result
+
+    except ValueError as e:
+
+        raise HTTPException(
+            status_code=400,
+            detail=str(e)
+        )
+
+    except Exception as e:
+
+        print(
+            f"Website QA agent error: {str(e)}"
+        )
+
+        raise HTTPException(
+            status_code=500,
+            detail=(
+                "Failed to analyze website."
+            )
         )

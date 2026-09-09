@@ -6,6 +6,8 @@ import CompetitorAgent from "./components/CompetitorAgent";
 
 import { sampleMeetingTranscript } from "./data/sampleTranscript";
 
+import WebsiteQAAgent from "./components/WebsiteQAAgent";
+
 
 type Agent = {
   id: number;
@@ -32,10 +34,11 @@ const agents: Agent[] = [
   },
 
   {
-    id: 3,
-    name: "Agent 03",
-    status: "coming-soon",
-    description: "Coming soon",
+  id: 3,
+  name: "AI Website QA Agent",
+  status: "available",
+  description:
+    "Inspect websites for technical, content and SEO issues.",
   },
 
   {
@@ -64,6 +67,9 @@ function App() {
 
   const [initialCompanies, setInitialCompanies] = useState<string[]>([]);
 
+  const [initialWebsiteUrl, setInitialWebsiteUrl] =
+  useState("");
+
   const handleAgentClick = (agent: Agent) => {
 
     if (agent.status === "available") {
@@ -78,6 +84,7 @@ function App() {
     setSelectedAgent(null);
     setInitialTranscript("");
     setInitialCompanies([]);
+    setInitialWebsiteUrl("");
   };
 
 
@@ -98,6 +105,16 @@ function App() {
 
   setSelectedAgent(2);
   };
+
+  const loadWebsiteQAExample = () => {
+
+  setInitialWebsiteUrl(
+    "example.com"
+  );
+
+  setSelectedAgent(3);
+
+};
 
 
   return (
@@ -223,6 +240,46 @@ function App() {
             </div>
 
           )}
+
+          {selectedAgent === 3 && (
+
+  <div className="sample-files">
+
+    <button
+      className="sample-file"
+      onClick={loadWebsiteQAExample}
+    >
+
+      <div className="sample-file-icon">
+        URL
+      </div>
+
+
+      <div className="sample-file-info">
+
+        <span className="sample-file-name">
+          example.com
+        </span>
+
+        <span className="sample-file-meta">
+          Sample website for QA inspection
+        </span>
+
+      </div>
+
+    </button>
+
+
+    <div className="sample-file-footer">
+
+      Click the example to load a website
+      into the AI Website QA Agent.
+
+    </div>
+
+  </div>
+
+)}
 
 
           {/* No Agent Selected */}
@@ -394,8 +451,16 @@ function App() {
             initialCompanies={initialCompanies}
           />
 
+        ) : selectedAgent === 3 ? (
 
-        ) : null}
+  <WebsiteQAAgent
+    onBack={goBack}
+    initialUrl={initialWebsiteUrl}
+  />
+
+) : null}
+
+        
 
 
       </main>

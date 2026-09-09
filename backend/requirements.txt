@@ -4,3 +4,5 @@ pydantic
 python-dotenv
 openai
 feedparser
+requests
+beautifulsoup4
