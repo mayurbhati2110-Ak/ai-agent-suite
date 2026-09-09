@@ -8,6 +8,13 @@ from app.schemas.meeting import (
 
 from app.agents.meeting_agent import MeetingAgent
 
+from app.schemas.competitor import (
+    CompetitorRequest,
+    CompetitorResponse
+)
+
+from app.agents.competitor_agent import CompetitorAgent
+
 
 app = FastAPI(
     title="AI Agent Suite",
@@ -68,4 +75,34 @@ def analyze_meeting(request: MeetingRequest):
         raise HTTPException(
             status_code=500,
             detail="An unexpected error occurred while analyzing the meeting."
+        )
+
+
+competitor_agent = CompetitorAgent()
+
+@app.post(
+    "/api/competitor/analyze",
+    response_model=CompetitorResponse
+)
+def analyze_competitors(
+    request: CompetitorRequest
+):
+    """
+    Analyze recent competitor updates.
+
+    The agent searches for recent information,
+    filters noise and duplicates, categorizes
+    meaningful updates, and generates an
+    intelligence brief.
+    """
+
+    try:
+        return competitor_agent.analyze(request)
+
+    except Exception as e:
+        print(f"Competitor agent error: {str(e)}")
+
+        raise HTTPException(
+            status_code=500,
+            detail="Failed to analyze competitor updates."
         )

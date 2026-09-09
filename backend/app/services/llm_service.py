@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 from openai import OpenAI
 
 # Explicitly load the .env file
-load_dotenv()
+load_dotenv(dotenv_path=".env")
 
 
 class LLMService:
