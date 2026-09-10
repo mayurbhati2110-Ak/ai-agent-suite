@@ -8,6 +8,13 @@ import { sampleMeetingTranscript } from "./data/sampleTranscript";
 
 import WebsiteQAAgent from "./components/WebsiteQAAgent";
 
+import LeadQualificationAgent from "./components/LeadQualificationAgent";
+
+import {
+  sampleLeadCSV,
+  sampleICP,
+} from "./data/sampleLeads";
+
 
 type Agent = {
   id: number;
@@ -42,10 +49,11 @@ const agents: Agent[] = [
   },
 
   {
-    id: 4,
-    name: "Agent 04",
-    status: "coming-soon",
-    description: "Coming soon",
+  id: 4,
+  name: "AI Lead Qualification Agent",
+  status: "available",
+  description:
+    "Research and rank prospects against your ideal customer profile.",
   },
 
   {
@@ -70,6 +78,12 @@ function App() {
   const [initialWebsiteUrl, setInitialWebsiteUrl] =
   useState("");
 
+  const [initialLeadCSV, setInitialLeadCSV] =
+  useState("");
+
+  const [initialLeadICP, setInitialLeadICP] =
+  useState(sampleICP);
+
   const handleAgentClick = (agent: Agent) => {
 
     if (agent.status === "available") {
@@ -85,6 +99,8 @@ function App() {
     setInitialTranscript("");
     setInitialCompanies([]);
     setInitialWebsiteUrl("");
+    setInitialLeadCSV("");
+    setInitialLeadICP(sampleICP);
   };
 
 
@@ -114,7 +130,17 @@ function App() {
 
   setSelectedAgent(3);
 
-};
+  };
+
+  const loadLeadQualificationExample = () => {
+
+  setInitialLeadCSV(sampleLeadCSV);
+
+  setInitialLeadICP(sampleICP);
+
+  setSelectedAgent(4);
+
+  };
 
 
   return (
@@ -274,6 +300,46 @@ function App() {
 
       Click the example to load a website
       into the AI Website QA Agent.
+
+    </div>
+
+  </div>
+
+)}
+
+          {/* Lead Qualification Agent Example */}
+
+{selectedAgent === 4 && (
+
+  <div className="sample-files">
+
+    <button
+      className="sample-file"
+      onClick={loadLeadQualificationExample}
+    >
+
+      <div className="sample-file-icon">
+        CSV
+      </div>
+
+      <div className="sample-file-info">
+
+        <span className="sample-file-name">
+          lead_qualification_example.csv
+        </span>
+
+        <span className="sample-file-meta">
+          10 synthetic leads + ICP
+        </span>
+
+      </div>
+
+    </button>
+
+    <div className="sample-file-footer">
+
+      Example dataset with 10 companies,
+      contact data and qualification criteria.
 
     </div>
 
@@ -453,12 +519,21 @@ function App() {
 
         ) : selectedAgent === 3 ? (
 
-  <WebsiteQAAgent
-    onBack={goBack}
-    initialUrl={initialWebsiteUrl}
-  />
+          <WebsiteQAAgent
+            onBack={goBack}
+            initialUrl={initialWebsiteUrl}
+          />
 
-) : null}
+        ) : selectedAgent === 4 ? (
+
+          <LeadQualificationAgent
+            onBack={goBack}
+            initialCSV={initialLeadCSV}
+            initialICP={initialLeadICP}
+          />
+
+
+        ) : null}
 
         
 

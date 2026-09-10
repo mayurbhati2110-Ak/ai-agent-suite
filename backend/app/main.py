@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, UploadFile, File, Form
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.schemas.meeting import (
@@ -22,6 +22,19 @@ from app.schemas.website_qa import (
 
 from app.agents.website_qa_agent import (
     WebsiteQAAgent
+)
+
+import csv
+import io
+
+
+from app.schemas.lead_qualification import (
+    ICP,
+    LeadQualificationResponse
+)
+
+from app.agents.lead_qualification_agent import (
+    LeadQualificationAgent
 )
 
 
@@ -159,4 +172,103 @@ def analyze_website(
             detail=(
                 "Failed to analyze website."
             )
+        )
+
+
+lead_qualification_agent = LeadQualificationAgent()
+
+@app.post(
+    "/api/lead-qualification/analyze",
+    response_model=LeadQualificationResponse
+)
+async def analyze_leads(
+    file: UploadFile = File(...),
+    icp: str = Form(...)
+):
+    """
+    Analyze leads from a CSV file against
+    a predefined Ideal Customer Profile (ICP).
+    """
+
+    try:
+        # Validate CSV file
+        if not file.filename or not file.filename.lower().endswith(".csv"):
+            raise HTTPException(
+                status_code=400,
+                detail="Please upload a CSV file."
+            )
+
+        # Read uploaded CSV
+        contents = await file.read()
+
+        try:
+            csv_text = contents.decode("utf-8-sig")
+        except UnicodeDecodeError:
+            raise HTTPException(
+                status_code=400,
+                detail="CSV file must be UTF-8 encoded."
+            )
+
+        reader = csv.DictReader(io.StringIO(csv_text))
+
+        if not reader.fieldnames:
+            raise HTTPException(
+                status_code=400,
+                detail="CSV file has no header row."
+            )
+
+        leads = []
+
+        for row in reader:
+            lead = {}
+
+            for key, value in row.items():
+                if key is None:
+                    continue
+
+                key = key.strip()
+
+                if isinstance(value, str):
+                    value = value.strip()
+
+                lead[key] = value
+
+            # Ignore completely empty rows
+            if any(value not in ("", None) for value in lead.values()):
+                leads.append(lead)
+
+        if not leads:
+            raise HTTPException(
+                status_code=400,
+                detail="CSV file contains no leads."
+            )
+
+        # Parse ICP JSON
+        try:
+            icp_data = ICP.model_validate_json(icp)
+        except Exception:
+            raise HTTPException(
+                status_code=400,
+                detail="Invalid ICP data."
+            )
+
+        # Run agent
+        result = lead_qualification_agent.analyze(
+            leads=leads,
+            icp=icp_data
+        )
+
+        return result
+
+    except HTTPException:
+        raise
+
+    except Exception as e:
+        print(
+            f"Lead qualification agent error: {str(e)}"
+        )
+
+        raise HTTPException(
+            status_code=500,
+            detail="Failed to analyze leads."
         )
