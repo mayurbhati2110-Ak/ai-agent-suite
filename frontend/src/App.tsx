@@ -10,6 +10,8 @@ import WebsiteQAAgent from "./components/WebsiteQAAgent";
 
 import LeadQualificationAgent from "./components/LeadQualificationAgent";
 
+import KnowledgeBaseAgent from "./components/KnowledgeBaseAgent";
+
 import {
   sampleLeadCSV,
   sampleICP,
@@ -57,10 +59,11 @@ const agents: Agent[] = [
   },
 
   {
-    id: 5,
-    name: "Agent 05",
-    status: "coming-soon",
-    description: "Coming soon",
+  id: 5,
+  name: "AI Knowledge-Base Support Agent",
+  status: "available",
+  description:
+    "Answer questions using the NotRealOrg knowledge base with verified sources.",
   },
 ];
 
@@ -531,6 +534,9 @@ function App() {
             initialCSV={initialLeadCSV}
             initialICP={initialLeadICP}
           />
+        ) : selectedAgent === 5 ? (
+
+          <KnowledgeBaseAgent />
 
 
         ) : null}

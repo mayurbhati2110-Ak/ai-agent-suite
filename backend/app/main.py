@@ -37,6 +37,15 @@ from app.agents.lead_qualification_agent import (
     LeadQualificationAgent
 )
 
+from app.schemas.knowledge_base import (
+    KnowledgeBaseRequest,
+    KnowledgeBaseResponse
+)
+
+from app.agents.knowledge_base_agent import (
+    KnowledgeBaseAgent
+)
+
 
 app = FastAPI(
     title="AI Agent Suite",
@@ -271,4 +280,52 @@ async def analyze_leads(
         raise HTTPException(
             status_code=500,
             detail="Failed to analyze leads."
+        )
+
+knowledge_base_agent = KnowledgeBaseAgent()
+
+# =========================
+# KNOWLEDGE-BASE SUPPORT
+# =========================
+
+@app.post(
+    "/api/knowledge-base/answer",
+    response_model=KnowledgeBaseResponse
+)
+def answer_knowledge_base_question(
+    request: KnowledgeBaseRequest
+):
+    """
+    Answer employee or customer questions
+    using only the NotRealOrg knowledge base.
+    """
+
+    try:
+
+        result = knowledge_base_agent.answer(
+            question=request.question,
+            conversation_history=request.conversation_history
+        )
+
+        return result
+
+    except ValueError as e:
+
+        raise HTTPException(
+            status_code=400,
+            detail=str(e)
+        )
+
+    except Exception as e:
+
+        print(
+            f"Knowledge-base agent error: {str(e)}"
+        )
+
+        raise HTTPException(
+            status_code=500,
+            detail=(
+                "Failed to answer the "
+                "knowledge-base question."
+            )
         )

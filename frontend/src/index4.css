@@ -1,0 +1,479 @@
+/* =========================
+   KNOWLEDGE BASE AGENT
+   ========================= */
+
+.kb-agent {
+  height: 100%;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 28px 34px 22px;
+  box-sizing: border-box;
+}
+
+
+/* =========================
+   HEADER
+   ========================= */
+
+.kb-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.kb-header-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 13px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 21px;
+
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.kb-header h1 {
+  margin: 0;
+
+  font-size: 21px;
+  font-weight: 650;
+  letter-spacing: -0.3px;
+}
+
+.kb-header p {
+  margin: 4px 0 0;
+
+  font-size: 13px;
+  opacity: 0.55;
+}
+
+
+/* =========================
+   CHAT AREA
+   ========================= */
+
+.kb-chat {
+  flex: 1;
+  min-height: 0;
+
+  overflow-y: auto;
+
+  padding: 10px 8px 18px 4px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.kb-chat::-webkit-scrollbar {
+  width: 5px;
+}
+
+.kb-chat::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+}
+
+
+/* =========================
+   EMPTY STATE
+   ========================= */
+
+.kb-empty-state {
+  margin: auto;
+
+  max-width: 530px;
+
+  text-align: center;
+  padding: 30px;
+}
+
+.kb-empty-icon {
+  width: 54px;
+  height: 54px;
+
+  margin: 0 auto 18px;
+
+  border-radius: 17px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 24px;
+
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.kb-empty-state h2 {
+  margin: 0 0 9px;
+
+  font-size: 24px;
+  letter-spacing: -0.5px;
+}
+
+.kb-empty-state p {
+  margin: 0;
+
+  line-height: 1.6;
+  font-size: 14px;
+  opacity: 0.52;
+}
+
+
+/* =========================
+   CHAT MESSAGES
+   ========================= */
+
+.kb-message {
+  max-width: 78%;
+  padding: 15px 17px;
+
+  border-radius: 16px;
+
+  animation: kbMessageIn 0.25s ease;
+}
+
+@keyframes kbMessageIn {
+  from {
+    opacity: 0;
+    transform: translateY(7px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.kb-user-message {
+  align-self: flex-end;
+
+  background: rgba(255, 255, 255, 0.09);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+
+  border-bottom-right-radius: 5px;
+}
+
+.kb-assistant-message {
+  align-self: flex-start;
+
+  background: rgba(255, 255, 255, 0.045);
+  border: 1px solid rgba(255, 255, 255, 0.075);
+
+  border-bottom-left-radius: 5px;
+}
+
+.kb-message-label {
+  margin-bottom: 7px;
+
+  font-size: 11px;
+  font-weight: 600;
+
+  opacity: 0.42;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.kb-message-content {
+  font-size: 14px;
+  line-height: 1.65;
+  white-space: pre-wrap;
+}
+
+.kb-source-note {
+  margin-top: 11px;
+
+  font-size: 11px;
+  opacity: 0.38;
+}
+
+
+/* =========================
+   LOADING
+   ========================= */
+
+.kb-loading {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+
+  height: 18px;
+}
+
+.kb-loading span {
+  width: 6px;
+  height: 6px;
+
+  border-radius: 50%;
+
+  background: currentColor;
+
+  opacity: 0.35;
+
+  animation: kbDot 1.2s infinite ease-in-out;
+}
+
+.kb-loading span:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.kb-loading span:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+@keyframes kbDot {
+  0%,
+  60%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.3;
+  }
+
+  30% {
+    transform: translateY(-4px);
+    opacity: 0.8;
+  }
+}
+
+
+/* =========================
+   ERROR
+   ========================= */
+
+.kb-error {
+  align-self: center;
+
+  max-width: 80%;
+
+  padding: 10px 14px;
+
+  border-radius: 10px;
+
+  font-size: 12px;
+
+  background: rgba(255, 70, 70, 0.08);
+  border: 1px solid rgba(255, 70, 70, 0.15);
+}
+
+
+/* =========================
+   SUGGESTIONS
+   ========================= */
+
+.kb-suggestions {
+  padding: 7px 3px 12px;
+}
+
+.kb-suggestions-label {
+  display: block;
+
+  margin-bottom: 8px;
+
+  font-size: 11px;
+  opacity: 0.38;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+
+.kb-suggestion-list {
+  display: flex;
+  gap: 8px;
+
+  overflow-x: auto;
+
+  padding-bottom: 2px;
+}
+
+.kb-suggestion-list::-webkit-scrollbar {
+  height: 3px;
+}
+
+.kb-suggestion-list::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.kb-suggestion {
+  flex-shrink: 0;
+
+  padding: 9px 12px;
+
+  border-radius: 10px;
+
+  font-family: inherit;
+  font-size: 12px;
+
+  color: inherit;
+
+  background: rgba(255, 255, 255, 0.045);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.kb-suggestion:hover {
+  background: rgba(255, 255, 255, 0.085);
+  border-color: rgba(255, 255, 255, 0.16);
+
+  transform: translateY(-1px);
+}
+
+
+/* =========================
+   INPUT
+   ========================= */
+
+.kb-input-area {
+  width: 100%;
+}
+
+.kb-input-wrapper {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+
+  padding: 9px 9px 9px 15px;
+
+  border-radius: 17px;
+
+  background: rgba(255, 255, 255, 0.055);
+  border: 1px solid rgba(255, 255, 255, 0.11);
+
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease;
+}
+
+.kb-input-wrapper:focus-within {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.kb-input-wrapper textarea {
+  flex: 1;
+
+  min-height: 24px;
+  max-height: 120px;
+
+  resize: none;
+
+  padding: 5px 0;
+
+  border: none;
+  outline: none;
+
+  background: transparent;
+
+  color: inherit;
+
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.kb-input-wrapper textarea::placeholder {
+  opacity: 0.35;
+}
+
+.kb-send-button {
+  flex-shrink: 0;
+
+  width: 37px;
+  height: 37px;
+
+  border: none;
+  border-radius: 11px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 15px;
+
+  color: inherit;
+  background: rgba(255, 255, 255, 0.1);
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.kb-send-button:hover:not(:disabled) {
+  transform: translateY(-1px);
+  background: rgba(255, 255, 255, 0.17);
+}
+
+.kb-send-button:disabled {
+  opacity: 0.25;
+  cursor: not-allowed;
+}
+
+.kb-input-hint {
+  padding: 6px 5px 0;
+
+  font-size: 10px;
+
+  opacity: 0.3;
+}
+
+
+/* =========================
+   RESPONSIVE
+   ========================= */
+
+@media (max-width: 900px) {
+
+  .kb-agent {
+    padding: 22px 20px 18px;
+  }
+
+  .kb-message {
+    max-width: 88%;
+  }
+
+  .kb-suggestion-list {
+    flex-wrap: nowrap;
+  }
+}
+
+@media (max-width: 600px) {
+
+  .kb-agent {
+    padding: 18px 14px 14px;
+  }
+
+  .kb-header h1 {
+    font-size: 18px;
+  }
+
+  .kb-empty-state {
+    padding: 20px;
+  }
+
+  .kb-empty-state h2 {
+    font-size: 21px;
+  }
+
+  .kb-message {
+    max-width: 94%;
+  }
+
+  .kb-suggestion {
+    font-size: 11px;
+  }
+}
